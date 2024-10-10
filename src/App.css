@@ -1,0 +1,6 @@
+div {
+  display: grid;
+  place-content: center;
+  margin: auto;
+  text-align: center;
+}

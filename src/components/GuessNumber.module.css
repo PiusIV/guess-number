@@ -1,0 +1,24 @@
+section {
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+
+  .question {
+    /* padding: 1.2rem 3rem; */
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    background-color: #4fa266;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: wait;
+  }
+}
+
+.input {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+}
