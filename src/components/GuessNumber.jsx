@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import FormElement from "./FormElement";
+import FeedBack from "./FeedBack";
 import styles from "./GuessNumber.module.css";
 
 export default function GuessNumber() {
@@ -8,16 +10,20 @@ export default function GuessNumber() {
   const [score, setScore] = useState(20);
   const [highScore, setHighScore] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+  const [feedBack, setFeedBack] = useState("guessss");
   const [secretNumber, setsecretNumber] = useState(
     Math.trunc(Math.random() * 20 + 1)
   );
 
   function handleCheck() {
-    console.log("guessssss", guess, secretNumber, score);
+    // nothing happens when score is less than zero
+    if (score <= 0) return;
+    console.log("guessssss", guess, secretNumber, score, feedBack);
 
     if (guess === secretNumber) {
       setResult(guess);
       setIsChecked(true);
+      setFeedBack("correct");
       if (guess > highScore) {
         setHighScore(guess);
       }
@@ -36,10 +42,22 @@ export default function GuessNumber() {
     //setHighScore(0);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleCheck();
+  }
+
+  function handleChange(e) {
+    setGuess(Number(e.target.value));
+  }
+
   const buttons = [
     { label: "check", onClick: handleCheck },
     { label: "again", onClick: handleReset },
   ];
+
+  const isTooLow = guess && guess < secretNumber;
+  const isTooHigh = guess && guess > secretNumber;
 
   return (
     <div>
@@ -50,22 +68,21 @@ export default function GuessNumber() {
 
         <div>
           <main>
-            <input
-              type="number"
-              name="number"
-              id="number"
-              className={styles.input}
-              placeholder="Enter a number..."
-              onChange={(e) => setGuess(Number(e.target.value))}
-              value={guess}
+            <FormElement
+              handleChange={handleChange}
+              guess={guess}
+              handleSubmit={handleSubmit}
             />
           </main>
           <aside>
-            <div>
-              <p>{isChecked ? "Correct Number! 🎉" : "Start Guessing...🕸"}</p>
-              <p>Score: {score}</p>
-              <p>Highscore: {highScore}</p>
-            </div>
+            <FeedBack
+              score={score}
+              highScore={highScore}
+              isTooHigh={isTooHigh}
+              isTooLow={isTooLow}
+              isChecked={isChecked}
+            />
+
             {buttons.map((btn) => (
               <Button key={btn.label} btn={btn} />
             ))}

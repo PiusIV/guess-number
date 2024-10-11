@@ -4,3 +4,27 @@ div {
   margin: auto;
   text-align: center;
 }
+
+/*<div>
+              <p>{isChecked ? "Correct Number! 🎉" : "Start Guessing...🕸"}</p>
+              <span>
+                {guess < secretNumber &&
+                  guess > 1 &&
+                  guess !== secretNumber &&
+                  "Too Low"}
+              </span>
+              <span>
+                {guess > secretNumber && guess !== secretNumber && "Too High"}
+              </span>
+
+              
+
+              {score > 1 ? (
+                <span>You have {score} trials left</span>
+              ) : (
+                <span style={{ color: "red" }}>Game Over</span>
+              )}
+              
+              <p>Highscore is {highScore}</p>
+            </div>
+            */
