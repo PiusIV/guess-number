@@ -1,9 +1,24 @@
 import React from "react";
 
-function FeedBack({ isTooLow, isTooHigh, score, highScore, isChecked }) {
+function FeedBack({
+  isTooLow,
+  isTooHigh,
+  score,
+  highScore,
+  isChecked,
+  isWrong,
+}) {
   return (
     <div>
-      <p>{isChecked ? "Correct Number! 🎉" : "Start Guessing...🕸"}</p>
+      {/* added a toggle/boolean for when the user clicks the wrong number */}
+      <p>
+        {isChecked
+          ? "Correct Number! 🎉"
+          : isWrong
+          ? "Wrong Number, please try again!"
+          : "Start Guessing...🕸"}
+      </p>
+
       {isTooLow && <span>Too Low!</span>}
       {isTooHigh && <span>Too High!</span>}
 

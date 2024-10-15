@@ -10,7 +10,8 @@ export default function GuessNumber() {
   const [score, setScore] = useState(20);
   const [highScore, setHighScore] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
-  const [feedBack, setFeedBack] = useState("guessss");
+  const [isWrong, setIsWrong] = useState(false);
+
   const [secretNumber, setsecretNumber] = useState(
     Math.trunc(Math.random() * 20 + 1)
   );
@@ -18,18 +19,18 @@ export default function GuessNumber() {
   function handleCheck() {
     // nothing happens when score is less than zero
     if (score <= 0) return;
-    console.log("guessssss", guess, secretNumber, score, feedBack);
+    console.log("guessssss", guess, secretNumber, score);
 
     if (guess === secretNumber) {
       setResult(guess);
       setIsChecked(true);
-      setFeedBack("correct");
       if (guess > highScore) {
         setHighScore(guess);
       }
     } else {
       setScore((s) => s - 1);
-      setResult("?");
+      // setResult("?");
+      setIsWrong(true);
     }
   }
 
@@ -39,6 +40,7 @@ export default function GuessNumber() {
     setScore(20);
     setIsChecked(false);
     setsecretNumber(Math.trunc(Math.random() * 20 + 1));
+    setIsWrong(false);
     //setHighScore(0);
   }
 
@@ -81,6 +83,7 @@ export default function GuessNumber() {
               isTooHigh={isTooHigh}
               isTooLow={isTooLow}
               isChecked={isChecked}
+              isWrong={isWrong}
             />
 
             {buttons.map((btn) => (

@@ -8,7 +8,7 @@ function FormElement({ handleSubmit, guess, handleChange }) {
         type="number"
         name="number"
         id="number"
-        min={"0"}
+        min="0"
         max="20"
         className={styles.input}
         placeholder="Enter a number..."
