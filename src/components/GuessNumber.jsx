@@ -64,9 +64,7 @@ export default function GuessNumber() {
   return (
     <div>
       <section className={styles.section}>
-        <div className={styles.question}>
-          {guess == secretNumber ? result : "?"}
-        </div>
+        <div className={styles.question}>{result}</div>
 
         <div>
           <main>
