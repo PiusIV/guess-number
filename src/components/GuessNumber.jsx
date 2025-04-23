@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useRef, useEffect } from "react";
+import React, { useReducer, useRef, useEffect } from "react";
 import Button from "./Button";
 import FormElement from "./FormElement";
 import FeedBack from "./FeedBack";
@@ -14,6 +14,9 @@ const initialState = {
   gameOver: false,
 };
 
+// * the Reducer function below handles the state and action object
+// * that will update state depending on the handler function
+
 function reducer(state, action) {
   switch (action.type) {
     case "guess":
@@ -27,7 +30,14 @@ function reducer(state, action) {
     case "score":
       return { ...state, score: state.score - 1 };
     case "reset":
-      return initialState;
+      return {
+        ...state,
+        guess: "",
+        result: "?",
+        score: 20,
+        highScore: 0,
+        messageType: "",
+      };
     default:
       return initialState;
   }
@@ -42,7 +52,7 @@ export default function GuessNumber() {
   // const [isChecked, setIsChecked] = useState(false);
   // const [isWrong, setIsWrong] = useState(false);
 
-  const secretNumber = useRef(Math.trunc(Math.random() * 20 + 1)); //? change to useRef...
+  const secretNumber = useRef(Math.trunc(Math.random() * 20 + 1)); //? changed to useRef...
 
   // destructuring the object
   const { guess, result, score, highScore, messageType, gameOver } = state;
@@ -54,11 +64,11 @@ export default function GuessNumber() {
   function handleCheck() {
     // nothing happens when score is less than zero
     if (score <= 0) return;
-    console.log("guessssss", guess, secretNumber, score);
+    // console.log("guessssss", guess, secretNumber, score);
 
     if (guess === secretNumber.current) {
       dispatch({ type: "result" });
-      dispatch({ type: "messageType", payload: "Correct Number 🎉😉" });
+      dispatch({ type: "messageType", payload: "CORRECT NUMBER 🎉😉" });
       // setResult(guess);
       // setIsChecked(true);
       if (guess > highScore) {
@@ -78,6 +88,8 @@ export default function GuessNumber() {
   }
 
   function handleReset() {
+    // ! manually mutated secretNumber, cos useRef doesnt re-render UI
+    // secretNumber.current = useRef(Math.trunc(Math.random() * 20 + 1));
     dispatch({ type: "reset" });
     // setResult("?");
     // setGuess("");
@@ -102,7 +114,6 @@ export default function GuessNumber() {
     { label: "check", onClick: handleCheck },
     { label: "again", onClick: handleReset },
   ];
-
   // const isTooLow = guess && guess < secretNumber;
   // const isTooHigh = guess && guess > secretNumber;
 
@@ -112,13 +123,6 @@ export default function GuessNumber() {
         <div className={styles.question}>{result}</div>
 
         <div>
-          <main>
-            <FormElement
-              onChange={handleChange}
-              guess={guess}
-              onSubmitGuess={handleSubmit}
-            />
-          </main>
           <aside>
             <FeedBack
               score={score}
@@ -134,6 +138,13 @@ export default function GuessNumber() {
               <Button key={btn.label} btn={btn} />
             ))}
           </aside>
+          <main>
+            <FormElement
+              onChange={handleChange}
+              guess={guess}
+              onSubmitGuess={handleSubmit}
+            />
+          </main>
         </div>
       </section>
     </div>
