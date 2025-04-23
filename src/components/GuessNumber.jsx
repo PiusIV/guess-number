@@ -133,10 +133,6 @@ export default function GuessNumber() {
               // isWrong={isWrong}
               message={messageType}
             />
-
-            {buttons.map((btn) => (
-              <Button key={btn.label} btn={btn} />
-            ))}
           </aside>
           <main>
             <FormElement
@@ -144,6 +140,9 @@ export default function GuessNumber() {
               guess={guess}
               onSubmitGuess={handleSubmit}
             />
+            {buttons.map((btn) => (
+              <Button key={btn.label} btn={btn} />
+            ))}
           </main>
         </div>
       </section>
