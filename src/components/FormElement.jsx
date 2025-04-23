@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./FormElement.module.css";
 
-function FormElement({ handleSubmit, guess, handleChange }) {
+function FormElement({ onSubmitGuess, guess, onChange }) {
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={onSubmitGuess}>
       <input
         type="number"
         name="number"
@@ -12,7 +12,7 @@ function FormElement({ handleSubmit, guess, handleChange }) {
         max="20"
         className={styles.input}
         placeholder="Enter a number..."
-        onChange={handleChange}
+        onChange={onChange}
         value={guess}
       />
     </form>

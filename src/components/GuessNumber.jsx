@@ -114,9 +114,9 @@ export default function GuessNumber() {
         <div>
           <main>
             <FormElement
-              handleChange={handleChange}
+              onChange={handleChange}
               guess={guess}
-              handleSubmit={handleSubmit}
+              onSubmitGuess={handleSubmit}
             />
           </main>
           <aside>
