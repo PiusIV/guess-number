@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useEffect } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import Button from "./Button";
 import FormElement from "./FormElement";
 import FeedBack from "./FeedBack";
@@ -45,6 +45,8 @@ function reducer(state, action) {
 
 export default function GuessNumber() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const secretNumber = useRef(Math.trunc(Math.random() * 20 + 1)); //? changed to useRef...
+
   // const [guess, setGuess] = useState("");
   // const [result, setResult] = useState("?");
   // const [score, setScore] = useState(20);
@@ -52,14 +54,8 @@ export default function GuessNumber() {
   // const [isChecked, setIsChecked] = useState(false);
   // const [isWrong, setIsWrong] = useState(false);
 
-  const secretNumber = useRef(Math.trunc(Math.random() * 20 + 1)); //? changed to useRef...
-
   // destructuring the object
   const { guess, result, score, highScore, messageType, gameOver } = state;
-
-  useEffect(() => {
-    secretNumber.current;
-  }, []);
 
   function handleCheck() {
     // nothing happens when score is less than zero
@@ -89,8 +85,10 @@ export default function GuessNumber() {
 
   function handleReset() {
     // ! manually mutated secretNumber, cos useRef doesnt re-render UI
-    // secretNumber.current = useRef(Math.trunc(Math.random() * 20 + 1));
     dispatch({ type: "reset" });
+    secretNumber.current = Math.trunc(Math.random() * 20 + 1);
+
+    // console.log(secretNumber);
     // setResult("?");
     // setGuess("");
     // setScore(20);
